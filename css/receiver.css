@@ -1,0 +1,10 @@
+body {
+  --playback-logo-image: url('../res/hooq-background.png');
+}
+
+/* https://developers.google.com/cast/docs/caf_receiver/customize_ui */
+#player {
+  --theme-hue: 100;
+  --progress-color: rgb(0, 255, 0);
+  --splash-image: url('../res/hooq-background.png');
+}
