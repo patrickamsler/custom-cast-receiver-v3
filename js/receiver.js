@@ -1,7 +1,7 @@
 'use strict';
-const logEvents = false; // set to false in production due to performance issues
-const debug = true;
-const licenseUrl = 'http://path/to/license/server';
+const LOG_EVENTS = true; // set to false in production due to performance issues
+const DEBUG = true;
+const LICENSE_URL = 'http://path/to/license/server';
 
 const context = cast.framework.CastReceiverContext.getInstance();
 const playerManager = context.getPlayerManager();
@@ -10,16 +10,16 @@ const playerManager = context.getPlayerManager();
 const init = () => {
     initPlaybackConfig();
 
-    if (logEvents) {
+    if (LOG_EVENTS) {
         addEventLogging()
     }
     const options = new cast.framework.CastReceiverOptions();
     addReceiverOptions(options);
-    if (debug) {
+    if (DEBUG) {
         addReceiverDebugOptions(options)
     }
 
-    addLicenseUrl(licenseUrl); // TODO test with license server
+    addLicenseUrl(LICENSE_URL); // TODO test with license server
     addMessageInterceptor();
 
     context.start(options);
@@ -39,7 +39,7 @@ const addReceiverOptions = (options) => {
 };
 
 const addReceiverDebugOptions = (options) => {
-    console.log('initialize debug options');
+    console.log('initialize DEBUG options');
     options.maxInactivity = 3600; //Development only
 };
 
@@ -64,13 +64,13 @@ const addLicenseUrl = (licenseUrl) => {
     };
     playerManager.setPlaybackConfig(playbackConfig);
 
-    // Update playback config licenseUrl according to provided value in load request.
-    playerManager.setMediaPlaybackInfoHandler((loadRequest, playbackConfig) => {
-        if (loadRequest.media.customData && loadRequest.media.customData.licenseUrl) {
-            playbackConfig.licenseUrl = loadRequest.media.customData.licenseUrl;
-        }
-        return playbackConfig;
-    });
+    // Update playback config LICENSE_URL according to provided value in load request.
+    // playerManager.setMediaPlaybackInfoHandler((loadRequest, playbackConfig) => {
+    //     if (loadRequest.media.customData && loadRequest.media.customData.licenseUrl) {
+    //         playbackConfig.licenseUrl = loadRequest.media.customData.licenseUrl;
+    //     }
+    //     return playbackConfig;
+    // });
 };
 
 const addMessageInterceptor = () => {
